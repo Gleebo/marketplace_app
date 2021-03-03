@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @listing.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @listing.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @listing.price %>
+</p>
+
+<button id="checkout">Buy</button>
+
+<%= link_to 'Back', listings_path %>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  document.getElementById("checkout").addEventListener("click", () => {
+    const stripe = Stripe("<%= Rails.application.credentials.dig :stripe, :public_key %>");
+    stripe.redirectToCheckout({
+      sessionId: "<%= @session_id %>"
+    });
+  });
+</script>
