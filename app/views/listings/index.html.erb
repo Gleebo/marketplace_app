@@ -2,30 +2,11 @@
 
 <h1>Listings</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @listings.each do |listing| %>
-      <tr>
-        <td><%= listing.user.username%></td>
-        <td><%= listing.title %></td>
-        <td><%= listing.description %></td>
-        <td><%= listing.price %></td>
-        <td><%= link_to 'Show', listing %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container m-auto flex flex-col justify-center items-center sm:flex-row sm:justify-start">
+  <% @listings.each do |listing| %>
+    <%= render "listing", listing: listing %>
+  <% end %>
+</div>
 
 <br>
-
 <%= link_to 'New Listing', new_listing_path %>
