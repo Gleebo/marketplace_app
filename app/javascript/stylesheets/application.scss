@@ -3,4 +3,10 @@
 @import "tailwindcss/utilities";
 
 @layer components{
+  .label{
+    @apply text-lg 
+  }
+  .field {
+    @apply border border-solid border-gray-300 text-base w-full
+  }
 }

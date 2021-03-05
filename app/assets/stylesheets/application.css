@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+.layout {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+}

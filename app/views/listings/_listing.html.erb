@@ -1,13 +1,19 @@
 <article class="flex flex-col w-72 my-3 mx-2 rounded-md shadow-uniform">
-  <header class="flex flex-wrap justify-between">
-    <h1 class="text-xl p-2"><%= listing.title %></h1>
-    <div class="text-lg p-2">AU$<%= listing.price.to_f/100 %></div>
-    <div class="w-full h-48 bg-yellow-500">Image</div>
-  </header>
+  <%= link_to listing do %>
+    <header class="flex flex-wrap justify-between">
+      <h1 class="text-xl p-2"><%= listing.title %></h1>
+      <div class="w-full h-48 bg-yellow-500">
+        <% if listing.photo.attached? %>
+          <%= image_tag listing.photo, class: "object-cover h-full w-full" %>
+        <% end %>
+      </div>
+    </header>
+    <% end %>
   <main class="p-2">
     <p class="h-20 text-lg"><%= listing.description %></p>
   </main>
   <footer class>
+    <div class="text-lg px-2 border-t-2">AU$<%= listing.price.to_f/100 %></div>
     <div class="text-lg border-t-2 px-2">category</div>
   </footer>
 </article>

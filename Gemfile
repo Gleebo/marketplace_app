@@ -48,3 +48,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'stripe'
+
+# cloudinary for image uploading
+gem 'cloudinary'
+gem 'activestorage-cloudinary-service'

@@ -12,6 +12,28 @@
   </head>
 
   <body>
-    <%= yield %>
+  <article class="layout">
+    <header>
+      <nav>
+        <h1 class="text-lg">PCP2P</h1>
+        <ul>
+          <%= link_to "Home", :root %>
+          <%= link_to "Listings", :listings %>
+          <% if user_signed_in? %>
+            <%= link_to "My Listings", :user_listings %>
+            <%= link_to "Log out", :destroy_user_session, method: :delete %>
+          <% else %>
+            <%= link_to "Log in", :new_user_session %>
+            <%= link_to "Sign up", :new_user_registration %>
+          <% end %>
+          <%= link_to 'New Listing', :new_listing %>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <%= yield %>
+    </main>
+    <footer></footer>  
+  </article>
   </body>
 </html>
