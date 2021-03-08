@@ -25,6 +25,10 @@
   </div>
 
   <div>
+    <%= form.select :category, @categories.map { |cat| [cat.name, cat.id] } %>
+  </div>
+
+  <div>
     <%= form.label :photo, class: "text-lg md:text-xl" %>
     <%= form.file_field :photo %>
   </div>

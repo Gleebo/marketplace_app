@@ -34,6 +34,7 @@ class ListingsController < ApplicationController
   # GET /listings/new
   def new
     @listing = Listing.new
+    @categories = Category.all
   end
 
   # GET /listings/1/edit
@@ -44,6 +45,7 @@ class ListingsController < ApplicationController
   def create
     @listing = Listing.new(listing_params)
     @listing.user = current_user
+    @listing.category = Category.find(params[:listing][:category])
     @listing.photo.attach params[:listing][:photo]
     respond_to do |format|
       if @listing.save
@@ -77,6 +79,12 @@ class ListingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def search
+    title = "%#{params[:search]}%"
+    category = params[:category]
+    @search_results = Listing.where("title like ? and category_id = ?", title, category)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -87,5 +95,9 @@ class ListingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def listing_params
       params.require(:listing).permit(:title, :description, :price)
+    end
+
+    def search_params
+      params.require(:search)
     end
 end
