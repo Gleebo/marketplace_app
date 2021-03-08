@@ -83,7 +83,15 @@ class ListingsController < ApplicationController
   def search
     title = "%#{params[:search]}%"
     category = params[:category]
-    @search_results = Listing.where("title like ? and category_id = ?", title, category)
+    
+    if title === ""
+      @search_results = Listing.where("category_id = ?", category)
+    elsif category === ""
+      @search_results = Listing.where("title like ?", title)
+    else
+      @search_results = Listing.where("title like ? and category_id = ?", title, category)
+    end
+    
   end
 
   private

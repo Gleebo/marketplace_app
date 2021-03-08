@@ -31,7 +31,7 @@
         <%= form_tag search_path, method: :get do %>
           <%= label_tag :search %>
           <%= text_field_tag :search, params[:search] %>
-          <%= select_tag :category, options_from_collection_for_select(Category.all, 'id', 'name') %>
+          <%= select_tag :category, options_from_collection_for_select(Category.all, 'id', 'name'), include_blank: true %>
           <%= submit_tag :search %>
         <% end %>
       </nav>
