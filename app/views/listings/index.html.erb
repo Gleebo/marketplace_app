@@ -1,8 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listings</h1>
-
-<div class="container m-auto flex flex-col justify-center items-center sm:flex-row sm:justify-start">
+<div class="container m-auto flex flex-col justify-center items-center sm:flex-row sm:flex-wrap">
   <% @listings.each do |listing| %>
     <%= render "listing", listing: listing %>
   <% end %>

@@ -81,17 +81,20 @@ class ListingsController < ApplicationController
   end
   
   def search
-    title = "%#{params[:search]}%"
-    category = params[:category]
+    title     = "%#{params[:search]}%"
+    category  = params[:category]
+    min_price = params[:min_price].to_i * 100
+    max_price = params[:max_price].to_i * 100
+    order     = params[:order]
     
-    if title === ""
-      @search_results = Listing.where("category_id = ?", category)
-    elsif category === ""
-      @search_results = Listing.where("title like ?", title)
-    else
-      @search_results = Listing.where("title like ? and category_id = ?", title, category)
-    end
-    
+    query = Listing.all
+    query = query.where("title like ?", title) if title != ""
+    query = query.where("category_id = ?", category) if category != ""
+    query = query.where("price >= ?", min_price) if min_price != ""
+    query = query.where("price <= ?", max_price) if max_price != ""
+    query = query.order(price: :desc) if order == "asc"
+    query = query.order(price: :asc) if order == "desc"
+    @search_results = query
   end
 
   private
@@ -103,9 +106,5 @@ class ListingsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def listing_params
       params.require(:listing).permit(:title, :description, :price)
-    end
-
-    def search_params
-      params.require(:search)
     end
 end
