@@ -1,24 +1,22 @@
-<article class="flex flex-col w-11/12 h-11/12 p-2 space-y-2 border border-solid m-auto rounded-lg shadow-uniform sm:w-3/5 md:flex-row md:space-x-2 md:w-3/4 md:max-w-3xl">
-  <header class="flex-1">
-    <p id="notice"><%= notice %></p>
-    <h1 class="text-lg"><%= @listing.title %></h1>
-    <div class="w-full h-72 bg-yellow-500">
+<div class="min-h-screen w-full flex items-center sm:h-screen">
+  <article class="w-11/12 flex flex-col mx-auto rounded-md shadow-uniform sm:h-95 md:flex-row">
+    <header class="h-80 rounded-md md:w-8/12 md:h-full md:rounded-l-md md:rounded-t-none">
+      <div class="h-full bg-blue-200 flex justify-center rounded-t-md md:rounded-l-md md:rounded-t-none">
         <% if @listing.photo.attached? %>
-          <%= image_tag @listing.photo, class: "object-cover h-full w-full" %>
+          <%= image_tag @listing.photo, class: "h-full object-contain" %>
         <% end %>
       </div>
-  </header>
-  <main class="flex-1 flex flex-col">
-    <p><%= @listing.category.name %></p>
-    <p class="text-base h-20 md:flex-1 md:pl-5">
-      <%= @listing.description %>
-    </p>
-    <div class="text-lg text-center">AU$<%= @listing.price.to_f/100 %></div>
-
-    <button id="checkout" class="h-12 w-11/12 text-lg rounded-full bg-yellow-500 text-white self-center">Buy</button>
-  </main>
-
-</article>
+    </header>
+    <main class="flex-1 flex flex-col pb-2">
+      <h1 class="text-xl text-center lg:text-4xl"><%= @listing.title %></h1>
+      <p class="text-base h-20 pl-2 sm:flex-1 lg:text-xl">
+        <%= @listing.description %>
+      </p>
+      <div class="text-lg text-center lg:text-2xl">AU$<%= @listing.price.to_f/100 %></div>
+      <button id="checkout" class="h-12 w-11/12 text-lg rounded-full bg-yellow-500 text-white self-center sm:w-1/2 lg:h-20 lg:text-3xl md:w-8/12">Buy</button>
+    </main>
+  </article>
+</div>
 
 <script src="https://js.stripe.com/v3/"></script>
 <script>
