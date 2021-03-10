@@ -2,10 +2,11 @@
   <%= link_to listing do %>
     <header class="flex flex-wrap justify-between">
       <h1 class="text-xl p-2"><%= listing.title %></h1>
-      <div class="w-full h-48 bg-yellow-500">
+      <div class="w-full h-48 bg-blue-200 relative z-0">
         <% if listing.photo.attached? %>
-          <%= image_tag listing.photo, class: "object-cover h-full w-full" %>
+          <%= image_tag listing.photo, class: "object-contain h-full w-full" %>
         <% end %>
+        <div class="text-xl py-1 pl-4 pr-2 rounded-l-full bg-blue-500 text-white absolute bottom-3 -right-1 text-right shadow-uniform z-30">AU$<%= listing.price.to_f/100 %></div>
       </div>
     </header>
     <% end %>
@@ -13,7 +14,5 @@
     <p class="h-20 text-lg"><%= listing.description %></p>
   </main>
   <footer class>
-    <div class="text-lg px-2 border-t-2">AU$<%= listing.price.to_f/100 %></div>
-    <div class="text-lg border-t-2 px-2"><%= listing.category.name %></div>
   </footer>
 </article>

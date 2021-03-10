@@ -10,3 +10,13 @@
     @apply border border-solid border-gray-300 text-base w-full
   }
 }
+
+@variants {
+  .blur {
+    filter: blur(0.2rem);
+  }
+  .login-position{
+    margin-top: -219px;
+    margin-left: -144px;
+  }
+}

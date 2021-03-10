@@ -16,6 +16,9 @@ module.exports = {
       xl: '1280px',
       '2xl': '1536px',
     },
+    filter:{
+      blur: "blur(0.4rem)"
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',

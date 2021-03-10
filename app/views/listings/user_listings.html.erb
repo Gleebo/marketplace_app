@@ -1,11 +1,15 @@
-<h1>Your Listings</h1>
-
-<ul>
+<div class="flex flex-col mt-10 justify-center items-center space-y-4">
   <% current_user.listings.each do |listing| %>
-    <h2><%= listing.title %></h2>
-    <p><%= listing.description %></p>
-    <div><%= listing.price %></div>
-    <%= link_to 'Edit', edit_listing_path(listing) %>
-    <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div class="flex w-11/12 rounded-l-full shadow-uniform h-10 pr-2 md:h-14 lg:w-8/12">
+      <h2 class="w-4/12 bg-yellow-500 text-white text-lg rounded-l-full pl-2 align-middle flex items-center md:text-xl"><%= listing.title.length > 7 ? listing.title[0..5] << "..." : listing.title %></h2>
+      <div>
+        <% if listing.photo.attached? %>
+          <%= image_tag listing.photo, class: "object-cover h-full w-full" %>
+        <% end %>
+      </div>
+      <div class="w-4/12 bg-blue-500 text-sm text-white pl-2 rounded-r-full flex items-center md:text-lg">AU$<%= listing.price.to_f/100 %></div>
+      <%= link_to 'Edit', edit_listing_path(listing), class: "w-2/12 text-center text-base flex items-center justify-center ml-1 md:text-lg" %>
+      <%= link_to 'Delete', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: " w-2/12 text-base flex items-center md:text-lg justify-center" %>
+    </div>
   <% end %>
-</ul>
+</div>
