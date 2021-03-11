@@ -90,8 +90,8 @@ class ListingsController < ApplicationController
     query = Listing.all
     query = query.where("title like ?", title) if title != ""
     query = query.where("category_id = ?", category) if category != ""
-    query = query.where("price >= ?", min_price) if min_price != ""
-    query = query.where("price <= ?", max_price) if max_price != ""
+    query = query.where("price >= ?", min_price) if min_price > 0
+    query = query.where("price <= ?", max_price) if max_price > 0
     query = query.order(price: :desc) if order == "asc"
     query = query.order(price: :asc) if order == "desc"
     @search_results = query
