@@ -9,6 +9,7 @@ Github repo: https://github.com/Gleebo/marketplace_app
 # Description
 #### Purpose
 The purpose of this application is to help people who want to buy or sell their used computer hardware to connect. Alos this is an excellent opportunity for me to learn how to use Rails.
+
 #### Features
 - Auth. The app has secure authentication and authorization , sing in, sign up implementation with Devise.
 - Listings. Users can create, update, view and remove listings. Listings include title, description, image and price.
@@ -18,6 +19,7 @@ The purpose of this application is to help people who want to buy or sell their 
 
 #### Sitemap
 ![sitemap](docs/sitemap.png)
+
 #### Screenshots
 ![screenshot](docs/home.png)
 ![screenshot](docs/listing.png)
