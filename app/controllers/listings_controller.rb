@@ -1,12 +1,12 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: [:new]
-  # GET /listings or /listings.json
+
   def index
-    @listings = Listing.all
+    @listings = Listing.all.limit 20
   end
 
-  # GET /listings/1 or /listings/1.json
+
   def show
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
@@ -31,10 +31,11 @@ class ListingsController < ApplicationController
 
   def user_listings
   end
+
   # GET /listings/new
   def new
+    # Create a new listing
     @listing = Listing.new
-    @categories = Category.all
   end
 
   # GET /listings/1/edit
@@ -43,9 +44,11 @@ class ListingsController < ApplicationController
 
   # POST /listings or /listings.json
   def create
-    @listing = Listing.new(listing_params)
+    fields = listing_params
+    # new listings
+    @listing = Listing.new({title: fields[:title], description: fields[:description], price: fields[:price]})
     @listing.user = current_user
-    @listing.category = Category.find(params[:listing][:category])
+    @listing.category = Category.find(fields[:category])
     @listing.photo.attach params[:listing][:photo]
     respond_to do |format|
       if @listing.save
@@ -60,8 +63,12 @@ class ListingsController < ApplicationController
 
   # PATCH/PUT /listings/1 or /listings/1.json
   def update
+    # Update the listing
+    fields = listing_params
+    @listing.category = Category.find(fields[:category])
+    @listing.photo.attach params[:listing][:photo]
     respond_to do |format|
-      if @listing.update(listing_params)
+      if @listing.update({title: fields[:title], description: fields[:description], price: fields[:price]})
         format.html { redirect_to @listing, notice: "Listing was successfully updated." }
         format.json { render :show, status: :ok, location: @listing }
       else
@@ -71,8 +78,8 @@ class ListingsController < ApplicationController
     end
   end
 
-  # DELETE /listings/1 or /listings/1.json
   def destroy
+    # Delete listing
     @listing.destroy
     respond_to do |format|
       format.html { redirect_to listings_url, notice: "Listing was successfully destroyed." }
@@ -87,24 +94,39 @@ class ListingsController < ApplicationController
     max_price = params[:max_price].to_i * 100
     order     = params[:order]
     
+    # get all listings
     query = Listing.all
+    
+    # search by title if title is provided
     query = query.where("title like ?", title) if title != ""
+    
+    # query search by category if category is provided
     query = query.where("category_id = ?", category) if category != ""
+    
+    # query limit by minimum price if minum price is provided
     query = query.where("price >= ?", min_price) if min_price > 0
+    
+    # query limit by maximum price if maximum price is provided
     query = query.where("price <= ?", max_price) if max_price > 0
+    
+    # query order listings in ascending order of the price of order value is asc
     query = query.order(price: :desc) if order == "asc"
+    
+    # query order listings in descending order of the price of order value is desc
     query = query.order(price: :asc) if order == "desc"
-    @search_results = query
+    
+    # execute query and save results in an instace property
+    @search_results = query.limit 20
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_listing
+      # Find lisitng by id
       @listing = Listing.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def listing_params
-      params.require(:listing).permit(:title, :description, :price)
+      params.require(:listing).permit(:title, :description, :price, :category)
     end
 end

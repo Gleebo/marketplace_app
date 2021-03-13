@@ -9,6 +9,9 @@
   .field {
     @apply border border-solid border-gray-300 text-base w-full
   }
+  .link {
+    @apply hover:bg-white hover:underline hover:text-black
+  }
 }
 
 @variants {

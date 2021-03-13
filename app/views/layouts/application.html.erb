@@ -19,27 +19,27 @@
       <nav class="order-2 mt-4">
         <ul class="flex flex-col mx-2">
           <li class="text-lg py-2 font-bold align-middle border-b text-center border-t">
-            <%= link_to "Home", :root %>
+            <%= link_to "Home", :root, class: "link" %>
           </li>
           <li class="text-lg py-2 font-bold align-middle border-b text-center">
-            <%= link_to "Listings", :listings %>
+            <%= link_to "Listings", :listings, class: "link" %>
           </li>
           <li class="text-lg py-2 font-bold align-middle border-b text-center">
-            <%= link_to 'New Listing', :new_listing %>
+            <%= link_to 'New Listing', :new_listing, class: "link" %>
           </li>
           <% if user_signed_in? %>
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
-              <%= link_to "My Listings", :user_listings %>
+              <%= link_to "My Listings", :user_listings, class: "link" %>
             </li>
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
-              <%= link_to "Log out", :destroy_user_session, method: :delete %>
+              <%= link_to "Log out", :destroy_user_session, method: :delete, class: "link" %>
             </li>
           <% else %>
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
-              <%= link_to "Log in", :new_user_session %>
+              <%= link_to "Log in", :new_user_session, class: "link" %>
             </li>
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
-              <%= link_to "Sign up", :new_user_registration %>
+              <%= link_to "Sign up", :new_user_registration, class: "link" %>
             </li>
           <% end %>
         </ul>

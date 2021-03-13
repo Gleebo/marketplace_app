@@ -6,5 +6,5 @@ class User < ApplicationRecord
   has_many :listings, dependent: :destroy
 
   # Validations
-  validates :username, :uniqueness: true
+  validates :username, uniqueness: true
 end
