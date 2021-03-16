@@ -1,0 +1,28 @@
+<div>
+  <%= form_with(model: @review, url: reviews_new_path) do |form| %>
+    <% if @review.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+        <ul>
+          <% @review.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.collection_radio_buttons :rating, [1,2,3,4,5], :to_s, :to_s %>
+    </div>
+
+    <div>
+      <%= form.text_field :content, placeholder: "Describe your experience" %>
+    </div>
+
+    <%= form.hidden_field :reviewee, value: @reviewee.id %>
+    
+    <div class="flex justify-center">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

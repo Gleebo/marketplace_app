@@ -1,0 +1,9 @@
+<div>
+  <% @purchases.each do |p| %>
+    <h1><%= p.listing.title %></h1>
+    <h2> <span>Purchased at:</span> <time><%= p.created_at %></time></h2>
+    <% if !@reviewees.include? p.listing.user.id %>
+      <%= link_to "Write a review", reviews_new_path(id: p.listing.user.id) %>
+    <% end %>
+  <% end %>
+</div>

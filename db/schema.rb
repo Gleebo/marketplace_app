@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_003053) do
+ActiveRecord::Schema.define(version: 2021_03_16_031531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,29 @@ ActiveRecord::Schema.define(version: 2021_03_08_003053) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
+    t.boolean "sold", default: false
     t.index ["category_id"], name: "index_listings_on_category_id"
     t.index ["user_id"], name: "index_listings_on_user_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "listing_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["listing_id"], name: "index_purchases_on_listing_id"
+    t.index ["user_id"], name: "index_purchases_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "rating"
+    t.text "content"
+    t.bigint "reviewer_id", null: false
+    t.bigint "reviewee_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reviewee_id"], name: "index_reviews_on_reviewee_id"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,4 +99,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_003053) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "listings", "categories"
   add_foreign_key "listings", "users"
+  add_foreign_key "purchases", "users"
+  add_foreign_key "reviews", "users", column: "reviewee_id"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
 end

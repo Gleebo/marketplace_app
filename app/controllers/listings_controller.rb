@@ -6,7 +6,6 @@ class ListingsController < ApplicationController
     @listings = Listing.all.limit 20
   end
 
-
   def show
     session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
@@ -20,7 +19,8 @@ class ListingsController < ApplicationController
       }],
       payment_intent_data: {
         metadata: {
-          listing_id: @listing_id
+          listing_id: @listing.id,
+          user_id: current_user.id
         }
       },
       success_url: "#{root_url}payments/success?listingId=#{@listing.id}",
@@ -30,6 +30,11 @@ class ListingsController < ApplicationController
   end
 
   def user_listings
+  end
+
+  def show_purchases
+    @purchases = current_user.purchases.all
+    @reviewees = current_user.written_reviews.all.map { |r| r.reviewee.id }
   end
 
   # GET /listings/new
@@ -96,6 +101,9 @@ class ListingsController < ApplicationController
     
     # get all listings
     query = Listing.all
+
+    # get all listings that are not sold
+    query = query.where(sold: false)
     
     # search by title if title is provided
     query = query.where("title like ?", title) if title != ""

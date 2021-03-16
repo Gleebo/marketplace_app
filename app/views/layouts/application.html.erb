@@ -31,8 +31,13 @@
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
               <%= link_to "My Listings", :user_listings, class: "link" %>
             </li>
+            
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
               <%= link_to "Log out", :destroy_user_session, method: :delete, class: "link" %>
+            </li>
+            
+            <li class="text-lg py-2 font-bold align-middle border-b text-center">
+              <%= link_to "Purchase history", :purchases, class: "link" %>
             </li>
           <% else %>
             <li class="text-lg py-2 font-bold align-middle border-b text-center">
