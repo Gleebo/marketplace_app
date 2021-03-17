@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
   def create
     fields = listing_params
     # new listings
-    @listing = Listing.new({title: fields[:title], description: fields[:description], price: fields[:price] * 100})
+    @listing = Listing.new({title: fields[:title], description: fields[:description], price: fields[:price].to_i * 100})
     @listing.user = current_user
     @listing.category = Category.find(fields[:category])
     @listing.photo.attach params[:listing][:photo]
@@ -75,7 +75,7 @@ class ListingsController < ApplicationController
     @listing.category = Category.find(fields[:category])
     @listing.photo.attach params[:listing][:photo]
     respond_to do |format|
-      if @listing.update({title: fields[:title], description: fields[:description], price: fields[:price]})
+      if @listing.update({title: fields[:title], description: fields[:description], price: fields[:price].to_i * 100})
         format.html { redirect_to @listing, notice: "Listing was successfully updated." }
         format.json { render :show, status: :ok, location: @listing }
       else

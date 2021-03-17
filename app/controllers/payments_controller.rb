@@ -19,7 +19,13 @@ class PaymentsController < ApplicationController
 
     # Set listing to sold
     listing.sold = true
-    listing.save
+    if !listing.save
+      listing.errors.each do |e|
+        puts e.full_message
+      end
+    end
+
+    #render text: "#{payment.metadata.listing_id}"
   end
 
 end
