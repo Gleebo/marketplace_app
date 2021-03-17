@@ -6,6 +6,12 @@
         <% if listing.photo.attached? %>
           <%= image_tag listing.photo, class: "object-contain h-full w-full" %>
         <% end %>
+        <% if user_signed_in? %>
+            <%# check if the listing belongs to the current user %>
+            <% if listing.user.id == current_user.id %>
+            <div class="text-lg py-1 pl-4 pr-2 rounded-l-full bg-yellow-500 text-white absolute top-3 -right-1 text-right shadow-uniform z-30">My Listing</div>
+          <% end %>
+        <% end %>
         <div class="text-xl py-1 pl-4 pr-2 rounded-l-full bg-blue-500 text-white absolute bottom-3 -right-1 text-right shadow-uniform z-30">AU$<%= listing.price.to_f/100 %></div>
       </div>
     </header>
