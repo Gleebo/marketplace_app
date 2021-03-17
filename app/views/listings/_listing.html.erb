@@ -1,7 +1,7 @@
 <article class="flex flex-col w-72 my-3 mx-2 rounded-md shadow-uniform">
   <%= link_to listing, class: "hover:underline hover:bg-yellow-500 rouned-t-md" do %>
     <header class="flex flex-wrap justify-between">
-      <h1 class="text-xl p-2"><%= listing.title %></h1>
+      <h1 class="text-xl p-2 truncate"><%= listing.title %></h1>
       <div class="w-full h-48 bg-blue-200 relative z-0">
         <% if listing.photo.attached? %>
           <%= image_tag listing.photo, class: "object-contain h-full w-full" %>
@@ -11,7 +11,7 @@
     </header>
     <% end %>
   <main class="p-2">
-    <p class="h-20 text-lg"><%= listing.description %></p>
+    <p class="h-20 text-lg overflow-ellipsis"><%= listing.description.size > 70 ? "#{listing.description[..67]}..." : listing.description %></p>
   </main>
   <footer class>
   </footer>
