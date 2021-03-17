@@ -10,7 +10,7 @@ class ReviewsController < ApplicationController
     @review.reviewer = current_user
     @review.reviewee = User.find(review_params[:reviewee])
     @review.save
-    #redirect_to purchases_path
+    redirect_to purchases_path
   end
 
   private

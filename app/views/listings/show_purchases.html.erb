@@ -1,9 +1,11 @@
-<div>
+<div class="flex flex-col mt-10 justify-center items-center space-y-4">
   <% @purchases.each do |p| %>
-    <h1><%= p.listing.title %></h1>
-    <h2> <span>Purchased at:</span> <time><%= p.created_at %></time></h2>
-    <% if !@reviewees.include? p.listing.user.id %>
-      <%= link_to "Write a review", reviews_new_path(id: p.listing.user.id) %>
-    <% end %>
+    <div>
+      <h1 class="text-lg border-b md:text-xl"><%= p.listing.title %></h1>
+      <h2 class="text-md md:text-lg"><span>Purchased at: </span><time><%= p.created_at %></time></h2>
+      <% if !@reviewees.include? p.listing.user.id %>
+        <%= link_to "Write a review", reviews_new_path(id: p.listing.user.id), class: "text-md underline md:text-lg" %>
+      <% end %>
+    </div>
   <% end %>
 </div>

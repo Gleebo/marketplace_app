@@ -1,4 +1,4 @@
-<div>
+<div class="p-1 mt-10 h-full md:max-w-xl m-auto">
   <%= form_with(model: @review, url: reviews_new_path) do |form| %>
     <% if @review.errors.any? %>
       <div id="error_explanation">
@@ -11,18 +11,18 @@
       </div>
     <% end %>
 
-    <div>
+    <div class="flex space-x-2 my-2 text-base items-center">
       <%= form.collection_radio_buttons :rating, [1,2,3,4,5], :to_s, :to_s %>
     </div>
 
     <div>
-      <%= form.text_field :content, placeholder: "Describe your experience" %>
+      <%= form.text_area :content, placeholder: "Describe your experience", class: "field h-32 md:h-40" %>
     </div>
 
     <%= form.hidden_field :reviewee, value: @reviewee.id %>
     
     <div class="flex justify-center">
-      <%= form.submit %>
+      <%= form.submit class: "w-1/2 md:w-1/3 h-10 rounded-lg bg-yellow-500 text-base text-white" %>
     </div>
   <% end %>
 </div>

@@ -3,7 +3,7 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
 
   def index
-    @listings = Listing.all.limit 20
+    @listings = Listing.where(sold: false).limit 20
   end
 
   def show
@@ -93,7 +93,7 @@ class ListingsController < ApplicationController
   end
   
   def search
-    title     = "%#{params[:search]}%"
+    title     = "%#{params[:search]}%".downcase
     category  = params[:category]
     min_price = params[:min_price].to_i * 100
     max_price = params[:max_price].to_i * 100
@@ -106,7 +106,7 @@ class ListingsController < ApplicationController
     query = query.where(sold: false)
     
     # search by title if title is provided
-    query = query.where("title like ?", title) if title != ""
+    query = query.where("LOWER(title) like ?", title) if title != ""
     
     # query search by category if category is provided
     query = query.where("category_id = ?", category) if category != ""

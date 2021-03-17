@@ -22,9 +22,6 @@
             <%= link_to "Home", :root, class: "link" %>
           </li>
           <li class="text-lg py-2 font-bold align-middle border-b text-center">
-            <%= link_to "Listings", :listings, class: "link" %>
-          </li>
-          <li class="text-lg py-2 font-bold align-middle border-b text-center">
             <%= link_to 'New Listing', :new_listing, class: "link" %>
           </li>
           <% if user_signed_in? %>
@@ -73,7 +70,7 @@
         <%= submit_tag :Search, class: "h-10 bg-yellow-500 text-white text-lg w-10/12 self-center rounded-md" %>
       <% end %>
     </header>
-    <main class="lg:ml-72 xl:ml-96" id="main">
+    <main class="lg:ml-72 xl:ml-96 overflow-y-scroll min-h-screen" id="main">
       <%= yield %>
     </main>
     <button class="rounded-full bg-blue-500 text-white w-16 h-16 fixed left-2 bottom-2 shadow-uniform z-50 lg:hidden" id="nav-button">NAV</button>
