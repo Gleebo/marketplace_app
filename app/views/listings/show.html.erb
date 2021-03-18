@@ -13,15 +13,27 @@
         <%= @listing.description %>
       </p>
       <div class="text-lg text-center lg:text-2xl">AU$<%= @listing.price.to_f/100 %></div>
-      <button id="checkout" class="h-12 w-11/12 text-lg rounded-full bg-yellow-500 text-white self-center sm:w-1/2 lg:h-20 lg:text-3xl md:w-8/12">Buy</button>
+      <% if user_signed_in? %>
+        <%# if the user is the owner display edit link instead of buy %>
+        <% if @listing.user.id == current_user.id %>
+          <%= link_to "Edit", edit_listing_path(@listing), class: "link text-xl self-center" %>
+        <% else %>
+          <button id="checkout" class="h-12 w-11/12 text-lg rounded-full bg-yellow-500 text-white self-center sm:w-1/2 lg:h-20 lg:text-3xl md:w-8/12">Buy</button>
+        <% end %>
+      <% else %>
+        <%# if the user is not signied in display link to log in %>
+        <%= link_to "Log in to buy", :new_user_session, class: "link text-lg self-center" %>
+      <% end %>
       <div class="space-y-2 mt-2 divide-y sm:max-h-96 sm:overflow-y-scroll">
+        <% if @listing.user.reviews.any? %>
         <h1 class="text-lg text-center">Reviews</h1>
-        <% @listing.user.reviews.all.each do |review| %>
-          <section class="mx-2">
-            <h1 class="text-base md:text-lg"><%= review.reviewer.username %></h1>
-            <h2 class="text-base text-center md:text-lg">Rating: <%= review.rating %></h2>
-            <p class="text-md md:text-base"><%= review.content %></p>
-          </section>
+          <% @listing.user.reviews.all.each do |review| %>
+            <section class="mx-2">
+              <h1 class="text-base md:text-lg"><%= review.reviewer.username %></h1>
+              <h2 class="text-base text-center md:text-lg">Rating: <%= review.rating %></h2>
+              <p class="text-md md:text-base"><%= review.content %></p>
+            </section>
+          <% end %>
         <% end %>
       </div>
     </main>

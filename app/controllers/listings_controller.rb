@@ -4,7 +4,8 @@ class ListingsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
 
   def index
-    @listings = Listing.where(sold: false).limit 20
+    @offset = params[:offset] ? params[:offset].to_i : 0
+    @listings = Listing.where(sold: false).limit(3).offset(@offset)
   end
 
   def show
@@ -127,7 +128,7 @@ class ListingsController < ApplicationController
     query = query.order(price: :asc) if order == "desc"
     
     # execute query and save results in an instace property
-    @search_results = query.limit 20
+    @search_results = query.limit 25
   end
 
   private
