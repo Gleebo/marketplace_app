@@ -6,11 +6,13 @@
   <% end %>
 </div>
 <div class="flex m-auto w-1/2 text-lg mb-6 justify-center items-center">
-  <% if (@offset - 3) >= 0 %>
-    <%= link_to "Previous", root_url(offset: @offset - 3), class: "link text-xl" %>
-  <% end %>
-  <%# Display previous link only if the listing on the page is not the last listing in DB %>
-  <% if !(@listings.last.id == Listing.last.id) %>
-    <%= link_to "Next", root_url(offset: @offset + 3), class: "link text-xl"  %>
+  <%if !@listings.empty?%>
+    <% if (@offset - ListingsController::PER_PAGE) >= 0 %>
+      <%= link_to "Previous", root_url(offset: @offset - ListingsController::PER_PAGE), class: "link text-xl" %>
+    <% end %>
+    <%# Display previous link only if the listing on the page is not the last listing in DB %>
+    <% if !(@listings.last.id == Listing.last.id) %>
+      <%= link_to "Next", root_url(offset: @offset + ListingsController::PER_PAGE), class: "link text-xl"  %>
+    <% end %>
   <% end %>
 </div>

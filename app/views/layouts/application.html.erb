@@ -14,7 +14,7 @@
   <body>
   <article class="layout">
     <%# <div class="fixed w-screen h-screen bg-blue-500 opacity-75 z-10 hidden blur" id="curtain"></div> %>
-    <header class="flex flex-col hidden overflow-y-scroll fixed min-h-screen w-10/12 bg-white shadow-right md:w-1/2 z-40 lg:flex lg:w-72 xl:w-96" id="nav">
+    <header class="flex flex-col hidden overflow-y-scroll fixed min-h-screen w-10/12 bg-white shadow-right md:w-1/2 z-40 lg:flex lg:w-72 xl:w-96 pt-4" id="nav">
       <h1 class="text-3xl text-center">PCP2P</h1>
       <% if user_signed_in? %>
         <h1 class="text-lg text-center">Logged in as: <%= current_user.username %></h1>
@@ -59,11 +59,11 @@
         <div class="flex space-x-2">
           <div class="w-1/2">
             <label for="min_price">Min price</label>
-            <%= number_field_tag :min_price, nil, class: "w-full border h-7 rounded-md" %>
+            <%= number_field_tag :min_price, nil, min: 0, class: "w-full border h-7 rounded-md" %>
           </div>
           <div class="w-1/2">
             <label for="min_price">Max price</label>
-            <%= number_field_tag :max_price, nil, class: "w-full border h-7 rounded -md" %>
+            <%= number_field_tag :max_price, nil, min: 0, class: "w-full border h-7 rounded -md" %>
           </div>
         </div>
         <div class="flex space-x-2">

@@ -1,11 +1,13 @@
 class ListingsController < ApplicationController
+  PER_PAGE = 20
+
   before_action :set_listing, only: %i[ show edit update destroy ]
   before_action :authorize, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new]
 
   def index
     @offset = params[:offset] ? params[:offset].to_i : 0
-    @listings = Listing.where(sold: false).limit(3).offset(@offset)
+    @listings = Listing.where(sold: false).limit(PER_PAGE).offset(@offset)
   end
 
   def show
@@ -135,7 +137,11 @@ class ListingsController < ApplicationController
 
   private
     def authorize
-      redirect_to root_url if current_user.id == @listing.user.id
+      if !user_signed_in?
+        redirect_to root_url 
+      elsif current_user.id != @listing.user.id
+        redirect_to root_url
+      end
     end
 
     def set_listing
