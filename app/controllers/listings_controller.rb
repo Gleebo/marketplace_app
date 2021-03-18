@@ -126,10 +126,10 @@ class ListingsController < ApplicationController
     query = query.where("price <= ?", max_price) if max_price > 0
     
     # query order listings in ascending order of the price of order value is asc
-    query = query.order(price: :desc) if order == "asc"
+    query = query.order(price: :desc) if order == "desc"
     
     # query order listings in descending order of the price of order value is desc
-    query = query.order(price: :asc) if order == "desc"
+    query = query.order(price: :asc) if order == "asc"
     
     # execute query and save results in an instace property
     @search_results = query.limit 25
