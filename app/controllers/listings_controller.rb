@@ -75,7 +75,9 @@ class ListingsController < ApplicationController
     # Update the listing
     fields = listing_params
     @listing.category = Category.find(fields[:category])
-    @listing.photo.attach params[:listing][:photo]
+    if params[:listing][:photo]
+      @listing.photo.attach params[:listing][:photo]
+    end
     respond_to do |format|
       if @listing.update({title: fields[:title], description: fields[:description], price: fields[:price].to_i * 100})
         format.html { redirect_to @listing, notice: "Listing was successfully updated." }
@@ -132,7 +134,6 @@ class ListingsController < ApplicationController
   end
 
   private
-
     def authorize
       redirect_to root_url if current_user.id == @listing.user.id
     end
