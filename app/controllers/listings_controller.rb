@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
   before_action :set_listing, only: %i[ show edit update destroy ]
+  before_action :authorize, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new]
 
   def index
@@ -130,6 +131,11 @@ class ListingsController < ApplicationController
   end
 
   private
+
+    def authorize
+      redirect_to root_url if current_user.id == @listing.user.id
+    end
+
     def set_listing
       # Find lisitng by id
       @listing = Listing.find(params[:id])
